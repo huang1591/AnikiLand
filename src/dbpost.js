@@ -32,10 +32,12 @@ function findByAuthor(author, callback) {
 	})
 }
 
-//////////////////////////////
+////////////////////////////
 // remove these examples
 
-// new Article({ id: 1, author: 'mrj1', img: null, date: new Date().getTime(), text: 'This is my first article'}).save()
+// new Article({ id: 1, author: 'mrj1', img: null, date: new Date().getTime(), text: 'This is my first article', comments: [{
+// 	commentId: 1, author: 'jmg3', date: new Date().getTime(), text: 'Comments'
+// }]}).save()
 // new Article({ id: 2, author: 'mrj1', img: null, date: new Date().getTime(), text: 'This is my second article'}).save()
 // new Article({ id: 3, author: 'jmg3', img: null, date: new Date().getTime(), text: "This is Max's article"}).save(function() {
 //      console.log('done with save')
@@ -51,6 +53,6 @@ function findByAuthor(author, callback) {
 //      })
 // })
 
-//////////////////////////////
+// ////////////////////////////
 // remove the above example code
-//////////////////////////////
+// ////////////////////////////

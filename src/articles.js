@@ -1,59 +1,47 @@
-let articles = [
-  {
-    id:1,
-    author:"Scott",
-    text:"This is the first article"
-  },
-  {
-    id:2,
-    author:"Mack",
-    text:"This is the second article"
-  },
-  {
-    id:3,
-    author:"Marry",
-    text:"This is the third article"
-  }
-]
-let id = 4;
-
-const reqHeader = (req, res) => {
-  console.log('Request method        :', req.method)
-  console.log('Request URL           :', req.url)
-  console.log('Request content-type  :', req.headers['content-type'])
-  console.log('Request payload       :', req.body)
-}
+var Profile = require('./model.js').Profile
+var Article = require('./model.js').Article
 
 const getArticles = (req, res) => {
-  reqHeader(req, res);
-  res.send(
-    {'articles' : articles}
-  )
+    if ( !req.params.id ) {
+        var users = [req.loginUser.username]
+        Profile.findOne({username: users[0]}).exec(function(err, doc) {
+            users = users.concat(doc.followers)
+            Article.find({author: {$in: users}}).exec(function(err, docs) {
+                res.send({
+                    articles: docs
+                })
+            })
+        })
+    }
+    else if ( req.params.id.length == 24 ) {
+        Article.findOne({_id: req.params.id}).exec(function(err, doc) {
+            res.send({
+                articles: [doc]
+            })
+        })
+    }
+    else {
+        Article.find({author: req.params.id}).exec(function(err, docs) {
+            res.send({
+                articles: docs
+            })
+        })
+    }
 }
 
-const addArticle = (req, res) => {
-  reqHeader(req, res);
-  let newArticle = {id: id, author: req.body.author, text: req.body.text};
-
-  if ( newArticle.author ){
-    id++;
-    articles.push(newArticle);
-    res.send(newArticle);
-  }
-  else res.end()
-}
-
-const oneArticle = (req, res) => {
-  reqHeader(req, res);
-  let chosenArticle = articles.find(article => {
-    return article.id == req.params.id
-  })
-  if( chosenArticle ) res.send(chosenArticle);
-  else res.end();
+const newPost = (req, res) => {
+    var img = null
+    if ( req.body.image ) {}
+    new Article({author: req.loginUser.username, img: img, date: new Date().getTime(),
+        text: req.body.text
+    }).save(function(err, doc) {
+        res.send({
+            articles:[doc]
+        })
+    })
 }
 
 module.exports = (app) => {
-  app.get('/articles', getArticles);
-  app.post('/article', addArticle);
-  app.get('/articles/:id', oneArticle);
+    app.get('/articles/:id*?', getArticles)
+    app.post('/article', newPost)
 }
