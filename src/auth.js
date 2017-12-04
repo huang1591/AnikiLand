@@ -76,7 +76,8 @@ const register = (req, res) => {
             new User({
                 username: req.body.username,
                 salt: salts,
-                saltedPassword: md5('password'+req.body.password+salts)
+                saltedPassword: md5('password'+req.body.password+salts),
+                oauth: "rice"
             }).save(function() {
                 new Profile({
                     username: req.body.username,
