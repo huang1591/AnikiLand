@@ -1,0 +1,124 @@
+<div class='logLink'>
+
+  <a routerLink='/profile'>Profile</a>
+  <a routerLink='/login' (click)='logout()'>Log Out</a>
+</div>
+
+<div class='mainFolo'>
+
+  <div class='userFolo'>
+
+    <div class='userInfo'>
+      <div>
+        <img src='{{user?.avatar}}' />
+      </div>
+      <p class='userName'>
+        {{user?.username}}
+      </p>
+      <p class='userStatus'>
+        {{user?.status}}
+      </p>
+      <input [(ngModel)]='newStatus' placeholder="How is it going today?" id='statusInput'/><br />
+      <button (click)='updateStatus()' id='statusBtn'>Update!</button>
+    </div>
+  </div>
+
+  <div class='followers'>
+    <div *ngFor='let fo of sfollowers; let i = index'>
+      <div>
+        <img src='{{fo?.avatar}}' />
+      </div>
+      <p class='floName'>
+        {{fo?.username}}
+      </p>
+      <p class='floStatus'>
+        {{fo?.status}}
+      </p>
+      <div>
+        <button (click)='remove(i)'>Remove</button>
+      </div>
+    </div>
+    <div class='addFlo'>
+      <input [(ngModel)]='addName' class='addName'/>
+      <button class='addFloBtn' (click)='addFlo()'>Add</button>
+    </div>
+  </div>
+
+</div>
+
+
+<div class='postTest'>
+  <input type='file' class='inputImg' id='postImg' #imgInput/>
+  <input type='text' [(ngModel)]='inputTxt' class='inputTxt' placeholder="please post here!"/><br />
+  <button (click)='clearTxt()' class='clearBtn'>Cancel</button>
+  <button class='postBtn' (click)='newPost()'>Post</button>
+  <input type="checkbox" [(ngModel)]='textonly' />Text Only
+</div>
+
+
+<div class='searchArea'>
+  <input [(ngModel)]='searchKey' placeholder="Search for posts here!" />
+</div>
+
+
+<div class='postArea'>
+
+  <div class='post'>
+    <table class='postTbl'>
+
+      <div *ngFor='let post of sposts|search:searchKey; let i = index'>
+        <tr>
+          <td class='postAuthor'>
+            {{post?.author}}
+          </td>
+          <td>
+            <p class='postContent'>
+              {{post?.text}}
+            </p>
+          </td>
+          <td *ngIf="post?.img!=null">
+            <img src='{{post?.img}}' />
+          </td>
+        </tr>
+
+        <div>
+
+                <table class='comment' *ngIf='!comments[i]'>
+                    <tr *ngFor='let comment of post?.comments; let j = index'>
+                        <td>{{comment?.author}}</td>
+                        <td>{{comment?.text}}</td>
+                        <td><button [disabled]='user?.username != comment?.author' (click)='editComment(i,j)'>edit</button></td>
+                    </tr>
+                </table>
+
+
+           <div class='buttons'>
+             <button (click)='addComment(i)'>Comment</button>
+             <button [disabled]='user?.userbame != post?.author' (click)='editPost(i)' class='postEditBtn'>Edit</button>
+             <button (click)='hideAndShow(i)'>Hide/Show Comments</button>
+             <input class='postInput' [formControl]='postInput'/>
+           </div>
+        </div>
+
+        <!-- <div class='comments' *ngIf='!comments[i]'>
+            <table class='comment'>
+                <tr *ngFor='let comment of post.comments; let j = index'>
+                    <td>{{comment.author}}</td>
+                    <td>{{comment.text}}</td>
+                    <td><button [disabled]='user.userName != comment.author'>edit</button></td>
+                </tr>
+            </table>
+        </div>
+
+       <div class='buttons'>
+         <button (click)='addComment(i)'>Comment</button>
+         <button [disabled]='user.userName != post.author'>Edit</button>
+         <button (click)='hideAndShow(i)'>Hide/Show Comments</button>
+         <input class='postInput' [(ngModel)]='postInput'/>
+       </div> -->
+
+      </div>
+
+    </table>
+  </div>
+</div>

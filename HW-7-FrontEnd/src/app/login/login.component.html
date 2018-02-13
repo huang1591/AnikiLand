@@ -1,0 +1,27 @@
+<p class='title'>
+  Aniki Land
+</p>
+
+<div class='regInfo'>
+  <a routerLink='/register' id="registerLink">
+    Not one of us yet? Register and begin a new adventure!
+  </a>
+
+</div>
+
+<div class='logForm'>
+  <form [formGroup]='loginForm'>
+    <table class='logTbl'>
+      <tr> <td class='badge'><p>User Name: </p></td> <td><input class='loginForm' formControlName='userName' /></td> </tr>
+      <tr> <td class='badge'><p>Password: </p></td> <td><input class='loginForm' formControlName='password' type='password' /></td> </tr>
+    </table>
+    <button class='loginBtn' (click)='login()'>Login!</button>
+    <google-signin
+  [clientId]="myClientId"
+  (googleSignInSuccess)="onGoogleSignInSuccess($event)">
+</google-signin>
+    <p>
+      {{msg}}
+    </p>
+  </form>
+</div>

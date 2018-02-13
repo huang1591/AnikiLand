@@ -1,0 +1,30 @@
+<a routerLink='/login'>Already have an account? Log in now!</a>
+<form [formGroup]="registerForm" class='regForm'>
+  <table class='regTbl'>
+    <tr>
+      <td class="badge">User Name:</td><td><input class='registerForm' formControlName='userName' required /></td>
+    </tr><tr>
+      <td class="badge">Display Name:</td><td><input class='registerForm' formControlName='displayName' required /></td>
+    </tr><tr>
+      <td class="badge">Email:</td><td><input class='registerForm' formControlName='email' required /></td>
+    </tr><tr>
+      <td class="badge">Birthday:</td><td><input class='registerForm' formControlName='birthDate' type="date" required /></td>
+    </tr><tr>
+      <td class="badge">Zipcode:</td><td><input class='registerForm' formControlName='zipcode' placeholder="12345" required /></td>
+    </tr><tr>
+      <td class="badge">Phone Number:</td><td><input class='registerForm' formControlName='phoneNum' placeholder="123-123-1234" required /></td>
+    </tr><tr>
+      <td class="badge">Password:</td><td><input class='registerForm' formControlName='password' type="password" required /></td>
+    </tr><tr>
+      <td class="badge">Password Confirm:</td><td><input class='registerForm' formControlName='passwordConf' type="password" required /></td>
+    </tr><tr>
+      <td class="btn"><button type="reset">Clear</button></td><td class="btn"><button (click)='validate()' type="submit" id='submitBtn'>Submit</button></td>
+    </tr>
+  </table>
+</form>
+
+<ul>
+  <li *ngFor='let msg of messages'>
+    {{msg}}
+  </li>
+</ul>

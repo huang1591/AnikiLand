@@ -1,0 +1,8 @@
+{
+  "netid" : "zh20",
+  "BackendUrl" : "https://zh20-hw6-backend.herokuapp.com/",
+  "backendusers" : "mrj1, jmg3",
+  "password" : "1-1-1",
+  "FrontendUrl" : "zh20HW7FrontEnd.surge.sh",
+  "frontendusers" : "zh20, wl49, qz25, zl52 passwords are all 1-1-1"
+}
